@@ -1,13 +1,175 @@
-body {
+/* App.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif; /* Change font family */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  background-color: #000;
+  color: #fff;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  color: #ccc;
+  padding: 40px 0;
+}
+
+.playlist {
+  float: left;
+  width: 40%;
+  padding: 0px;
+  background-color: #333; /* Dark background color */
+  border-radius: 10px;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+  position: sticky; /* Pin the playlist */
+  top: 0; /* Pin to the top */
+}
+
+.playlist .playlist-header {
+  position: sticky; /* Pin the playlist header */
+  top: 0; /* Pin to the top */
+  z-index: 1; /* Ensure it appears above other content */
+  background-color: #333; /* Dark background color */
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between; /* Align items to the start and end */
+  align-items: center;
+}
+
+.playlist h2 {
+  margin: 0;
+  color: #fff; /* Text color */
+}
+
+.playlist button.delete-all {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.playlist ul {
+  list-style: none; /* Remove the default list-style */
+  padding: 0;
+}
+
+.playlist ul li {
+  background-color: #444; /* Darker background color */
+  border: 1px solid #333; /* Dark border color */
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.playlist ul li:hover {
+  background-color: #555; /* Hover background color */
+}
+
+.now-playing {
+  float: right;
+  width: 60%; /* Increase width for a larger card */
+  padding: 20px;
+  background-color: #222; /* Darker background color */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add box shadow for depth */
+  animation: slideIn 0.5s ease; /* Add animation */
+}
+
+.now-playing h2 {
+  margin-top: 0;
+  color: #fff; /* Text color */
+}
+
+.current-song {
+  margin-bottom: 20px; /* Add some space below */
+}
+
+.current-song .song-details {
+  color: #fff;
+}
+
+.controls {
+  display: flex;
+  justify-content: center; /* Center buttons horizontally */
+}
+
+.controls button {
+  display: flex;
+  align-items: center;
+  margin: 0 35px; /* Add equal space between buttons */
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.controls button:hover {
+  background-color: #0056b3;
+}
+
+.now-playing audio {
+  width: 100%;
+}
+
+.now-playing audio::-webkit-media-controls-panel {
+  background-color: transparent;
+}
+
+.current-song{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Playback status container */
+.playback-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f8d7da; /* Red color for error */
+  color: #721c24; /* Dark color for text */
+  border-radius: 5px;
+}
+
+/* Error message */
+.playback-status.error {
+  background-color: #f8d7da; /* Red color for error */
+  color: #721c24; /* Dark color for text */
+}
+
+/* Playback status message */
+.playback-status .status-message {
+  margin-right: 10px;
+}
+
+/* Error message */
+.playback-status .error-message {
+  font-weight: bold;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

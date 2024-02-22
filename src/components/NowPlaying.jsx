@@ -1,6 +1,12 @@
 import React from 'react';
 
 class NowPlaying extends React.Component {
+  componentDidMount() {
+    // Add event listener for the 'ended' event on the audio element
+    const audioElement = document.getElementById('audioPlayer');
+    audioElement.addEventListener('ended', this.props.onNextSong);
+  }
+
   componentDidUpdate(prevProps) {
     const { currentAudioIndex, playlist } = this.props;
     if (currentAudioIndex !== prevProps.currentAudioIndex && currentAudioIndex >= 0 && currentAudioIndex < playlist.length) {
@@ -11,7 +17,6 @@ class NowPlaying extends React.Component {
         if (this.props.isPlaying) {
           audioElement.play().catch(error => {
             console.error('Failed to play audio:', error);
-  
           });
         }
       } else {
@@ -19,34 +24,13 @@ class NowPlaying extends React.Component {
       }
     }
   }
-  
 
-  togglePlayPause = () => {
+  componentWillUnmount() {
+    // Remove event listener when component unmounts
     const audioElement = document.getElementById('audioPlayer');
-    if (audioElement.paused) {
-      audioElement.play().catch(error => {
-        console.error('Failed to play audio:', error);
-        this.setState({ playbackError: error.message });
-      });
-      this.setState({ isPlaying: true, playbackError: null }); 
-    } else {
-      audioElement.pause();
-      this.setState({ isPlaying: false });
-    }
-  };
-  
+    audioElement.removeEventListener('ended', this.props.onNextSong);
+  }
 
-  handleNextSong = () => {
-    const { onNextSong } = this.props;
-    this.setState({ isPlaying: true, playbackError: null }, onNextSong);
-  };
-
-  handlePreviousSong = () => {
-    const { onPreviousSong } = this.props;
-    this.setState({ isPlaying: true, playbackError: null }, onPreviousSong);
-  };
-
-  
   render() {
     const { playlist, currentAudioIndex, isPlaying, onTogglePlayPause, onNextSong, onPreviousSong } = this.props;
     const currentSong = playlist[currentAudioIndex];
